@@ -8,19 +8,18 @@ namespace RTree
         : m_dimension(dimension), m_nodeCapacity(nodeCapacity), m_nextId(1)
     {
         // 创建根节点(开始为叶子节点)
-        m_root = new LeafNode(nodeCapacity);
+        m_root_node = new LeafNode(nodeCapacity);
     }
 
     RTree::~RTree()
     {
-        delete m_root;
+        delete m_root_node;
     }
 
     void RTree::insert(uint32_t dataLength, const uint8_t *pData, const Region &mbr, id_type id)
     {
         // 创建数据对象
         Data *data = new Data(dataLength, pData, mbr, id);
-
         // 插入数据
         insertData_impl(data);
 
@@ -30,17 +29,17 @@ namespace RTree
 
     bool RTree::remove(const Region &mbr, id_type id)
     {
-        return m_root->remove(id, mbr);
+        return m_root_node->remove(id, mbr);
     }
 
     std::vector<Data *> RTree::intersectionQuery(const Region &query)
     {
-        return m_root->search(query);
+        return m_root_node->search(query);
     }
 
     std::vector<Data *> RTree::containmentQuery(const Region &query)
     {
-        std::vector<Data *> intersectedResults = m_root->search(query);
+        std::vector<Data *> intersectedResults = m_root_node->search(query);
         std::vector<Data *> containedResults;
 
         // 过滤出完全被包含的结果
@@ -66,7 +65,7 @@ namespace RTree
         }
 
         Region pointRegion(coords, coords + m_dimension, m_dimension);
-        std::vector<Data *> intersectedResults = m_root->search(pointRegion);
+        std::vector<Data *> intersectedResults = m_root_node->search(pointRegion);
         std::vector<Data *> pointResults;
 
         // 过滤出包含该点的结果
@@ -91,15 +90,25 @@ namespace RTree
         return m_nodeCapacity;
     }
 
+    uint32_t RTree::getHeight() const
+    {
+        if (!m_root_node)
+        {
+            return 0; // 空树的高度为0
+        }
+
+        return m_root_node->getHeight();
+    }
+
     void RTree::insertData_impl(Data *data)
     {
         // 将数据插入到根节点
-        m_root->insert(data);
+        m_root_node->insert(data);
 
         // 如果根节点分裂，需要创建新的根节点
-        if (m_root->shouldSplit())
+        if (m_root_node->shouldSplit())
         {
-            auto [original, newNode] = m_root->split();
+            auto [original, newNode] = m_root_node->split();
 
             if (newNode)
             {
@@ -108,7 +117,7 @@ namespace RTree
                 newRoot->addChild(original);
                 newRoot->addChild(newNode);
 
-                m_root = newRoot;
+                m_root_node = newRoot;
             }
         }
     }
@@ -154,7 +163,7 @@ namespace RTree
         if (newNode == nullptr)
         {
             // 如果是根节点，不需要再调整
-            if (node == m_root)
+            if (node == m_root_node)
             {
                 return;
             }
@@ -168,12 +177,12 @@ namespace RTree
         // 如果有新节点，需要处理分裂的情况
 
         // 如果分裂的是根节点，创建新的根
-        if (node == m_root)
+        if (node == m_root_node)
         {
             InternalNode *newRoot = new InternalNode(m_nodeCapacity);
             newRoot->addChild(node);
             newRoot->addChild(newNode);
-            m_root = newRoot;
+            m_root_node = newRoot;
             return;
         }
 

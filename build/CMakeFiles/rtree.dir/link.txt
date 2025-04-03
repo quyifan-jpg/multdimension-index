@@ -1,2 +1,0 @@
-/usr/bin/ar qc librtree.a CMakeFiles/rtree.dir/src/RTree/impl/Point.cpp.o CMakeFiles/rtree.dir/src/RTree/impl/Region.cpp.o CMakeFiles/rtree.dir/src/RTree/impl/Data.cpp.o CMakeFiles/rtree.dir/src/RTree/impl/LeafNode.cpp.o CMakeFiles/rtree.dir/src/RTree/impl/InternalNode.cpp.o CMakeFiles/rtree.dir/src/RTree/impl/SimpleRTree.cpp.o
-/usr/bin/ranlib librtree.a

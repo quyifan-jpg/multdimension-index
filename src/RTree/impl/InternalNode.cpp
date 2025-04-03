@@ -170,7 +170,9 @@ namespace RTree
         }
 
         // 如果子节点是叶子，选择扩展最小的节点
-        if (m_children[0]->isLeaf())
+
+        auto bestChild = m_children[0];
+        if (bestChild->isLeaf())
         {
             double minEnlargement = std::numeric_limits<double>::max();
             Node *bestChild = nullptr;
@@ -228,10 +230,26 @@ namespace RTree
                     }
                 }
             }
-
-            // 递归进入选择的子树
-            return static_cast<InternalNode *>(bestChild)->chooseSubtree(mbr);
+            Node *result = bestChild->chooseSubtree(mbr); // 递归进入选择的子树
+            return result;
         }
+    }
+
+    uint32_t InternalNode::getHeight() const
+    {
+        if (m_children.empty())
+        {
+            return 1; // 空内部节点也有高度1
+        }
+
+        // 内部节点的高度是其子节点中最大高度加1
+        uint32_t maxChildHeight = 0;
+        for (const Node *child : m_children)
+        {
+            maxChildHeight = std::max(maxChildHeight, child->getHeight());
+        }
+
+        return maxChildHeight + 1;
     }
 
 } // namespace RTree

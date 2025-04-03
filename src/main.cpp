@@ -114,7 +114,7 @@ int main()
               << std::endl;
 
     // Create a 2-dimensional R-tree with node capacity 32
-    RTree::RTree rtree(2, 32);
+    RTree::RTree rtree(2, 8);
     std::cout << "Created R-tree: Dimension=" << rtree.getDimension()
               << ", Node Capacity=" << rtree.getNodeCapacity() << std::endl
               << std::endl;

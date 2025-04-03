@@ -108,6 +108,8 @@ namespace RTree
         virtual std::vector<Data *> search(const Region &query) = 0;
         virtual bool shouldSplit() const = 0;
         virtual std::pair<Node *, Node *> split() = 0;
+        virtual uint32_t getHeight() const = 0;
+        virtual Node *chooseSubtree(const Region &mbr){};
     };
 
     // 叶子节点
@@ -124,6 +126,7 @@ namespace RTree
         std::vector<Data *> search(const Region &query) override;
         bool shouldSplit() const override;
         std::pair<Node *, Node *> split() override;
+        uint32_t getHeight() const override;
 
     private:
         uint32_t m_capacity;
@@ -150,6 +153,7 @@ namespace RTree
         std::vector<Data *> search(const Region &query) override;
         bool shouldSplit() const override;
         std::pair<Node *, Node *> split() override;
+        uint32_t getHeight() const override;
 
         void addChild(Node *child);
 
@@ -182,9 +186,10 @@ namespace RTree
         // 辅助方法
         uint32_t getDimension() const;
         uint32_t getNodeCapacity() const;
+        uint32_t getHeight() const;
 
     private:
-        Node *m_root;
+        Node *m_root_node;
         uint32_t m_dimension;
         uint32_t m_nodeCapacity;
         id_type m_nextId;
