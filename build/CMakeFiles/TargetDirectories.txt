@@ -1,0 +1,7 @@
+/users/Yifan32/multdimension-index/build/CMakeFiles/rtree_app.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/edit_cache.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/rebuild_cache.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/list_install_components.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/install.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/install/local.dir
+/users/Yifan32/multdimension-index/build/CMakeFiles/install/strip.dir

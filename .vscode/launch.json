@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug RTree",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/rtree_app",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set breakpoint at main function",
+                    "text": "break main",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "build",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "sourceFileMap": {
+                "${workspaceFolder}": "${workspaceFolder}"
+            }
+        }
+    ]
+} 
