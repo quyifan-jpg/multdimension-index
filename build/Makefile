@@ -162,6 +162,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named rtree
+
+# Build rule for target.
+rtree: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rtree
+.PHONY : rtree
+
+# fast build rule for target.
+rtree/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/build
+.PHONY : rtree/fast
+
+#=============================================================================
 # Target rules for targets named rtree_app
 
 # Build rule for target.
@@ -174,173 +187,149 @@ rtree_app/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/build
 .PHONY : rtree_app/fast
 
-src/DataGenerator.o: src/DataGenerator.cpp.o
-.PHONY : src/DataGenerator.o
+src/RTree/impl/Data.o: src/RTree/impl/Data.cpp.o
+.PHONY : src/RTree/impl/Data.o
 
 # target to build an object file
-src/DataGenerator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o
-.PHONY : src/DataGenerator.cpp.o
+src/RTree/impl/Data.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Data.cpp.o
+.PHONY : src/RTree/impl/Data.cpp.o
 
-src/DataGenerator.i: src/DataGenerator.cpp.i
-.PHONY : src/DataGenerator.i
+src/RTree/impl/Data.i: src/RTree/impl/Data.cpp.i
+.PHONY : src/RTree/impl/Data.i
 
 # target to preprocess a source file
-src/DataGenerator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.i
-.PHONY : src/DataGenerator.cpp.i
+src/RTree/impl/Data.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Data.cpp.i
+.PHONY : src/RTree/impl/Data.cpp.i
 
-src/DataGenerator.s: src/DataGenerator.cpp.s
-.PHONY : src/DataGenerator.s
+src/RTree/impl/Data.s: src/RTree/impl/Data.cpp.s
+.PHONY : src/RTree/impl/Data.s
 
 # target to generate assembly for a file
-src/DataGenerator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.s
-.PHONY : src/DataGenerator.cpp.s
+src/RTree/impl/Data.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Data.cpp.s
+.PHONY : src/RTree/impl/Data.cpp.s
 
-src/RTree/Entry.o: src/RTree/Entry.cpp.o
-.PHONY : src/RTree/Entry.o
+src/RTree/impl/InternalNode.o: src/RTree/impl/InternalNode.cpp.o
+.PHONY : src/RTree/impl/InternalNode.o
 
 # target to build an object file
-src/RTree/Entry.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o
-.PHONY : src/RTree/Entry.cpp.o
+src/RTree/impl/InternalNode.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/InternalNode.cpp.o
+.PHONY : src/RTree/impl/InternalNode.cpp.o
 
-src/RTree/Entry.i: src/RTree/Entry.cpp.i
-.PHONY : src/RTree/Entry.i
+src/RTree/impl/InternalNode.i: src/RTree/impl/InternalNode.cpp.i
+.PHONY : src/RTree/impl/InternalNode.i
 
 # target to preprocess a source file
-src/RTree/Entry.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.i
-.PHONY : src/RTree/Entry.cpp.i
+src/RTree/impl/InternalNode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/InternalNode.cpp.i
+.PHONY : src/RTree/impl/InternalNode.cpp.i
 
-src/RTree/Entry.s: src/RTree/Entry.cpp.s
-.PHONY : src/RTree/Entry.s
+src/RTree/impl/InternalNode.s: src/RTree/impl/InternalNode.cpp.s
+.PHONY : src/RTree/impl/InternalNode.s
 
 # target to generate assembly for a file
-src/RTree/Entry.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.s
-.PHONY : src/RTree/Entry.cpp.s
+src/RTree/impl/InternalNode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/InternalNode.cpp.s
+.PHONY : src/RTree/impl/InternalNode.cpp.s
 
-src/RTree/Node.o: src/RTree/Node.cpp.o
-.PHONY : src/RTree/Node.o
+src/RTree/impl/LeafNode.o: src/RTree/impl/LeafNode.cpp.o
+.PHONY : src/RTree/impl/LeafNode.o
 
 # target to build an object file
-src/RTree/Node.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o
-.PHONY : src/RTree/Node.cpp.o
+src/RTree/impl/LeafNode.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/LeafNode.cpp.o
+.PHONY : src/RTree/impl/LeafNode.cpp.o
 
-src/RTree/Node.i: src/RTree/Node.cpp.i
-.PHONY : src/RTree/Node.i
+src/RTree/impl/LeafNode.i: src/RTree/impl/LeafNode.cpp.i
+.PHONY : src/RTree/impl/LeafNode.i
 
 # target to preprocess a source file
-src/RTree/Node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.i
-.PHONY : src/RTree/Node.cpp.i
+src/RTree/impl/LeafNode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/LeafNode.cpp.i
+.PHONY : src/RTree/impl/LeafNode.cpp.i
 
-src/RTree/Node.s: src/RTree/Node.cpp.s
-.PHONY : src/RTree/Node.s
+src/RTree/impl/LeafNode.s: src/RTree/impl/LeafNode.cpp.s
+.PHONY : src/RTree/impl/LeafNode.s
 
 # target to generate assembly for a file
-src/RTree/Node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.s
-.PHONY : src/RTree/Node.cpp.s
+src/RTree/impl/LeafNode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/LeafNode.cpp.s
+.PHONY : src/RTree/impl/LeafNode.cpp.s
 
-src/RTree/Point.o: src/RTree/Point.cpp.o
-.PHONY : src/RTree/Point.o
+src/RTree/impl/Point.o: src/RTree/impl/Point.cpp.o
+.PHONY : src/RTree/impl/Point.o
 
 # target to build an object file
-src/RTree/Point.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o
-.PHONY : src/RTree/Point.cpp.o
+src/RTree/impl/Point.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Point.cpp.o
+.PHONY : src/RTree/impl/Point.cpp.o
 
-src/RTree/Point.i: src/RTree/Point.cpp.i
-.PHONY : src/RTree/Point.i
+src/RTree/impl/Point.i: src/RTree/impl/Point.cpp.i
+.PHONY : src/RTree/impl/Point.i
 
 # target to preprocess a source file
-src/RTree/Point.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.i
-.PHONY : src/RTree/Point.cpp.i
+src/RTree/impl/Point.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Point.cpp.i
+.PHONY : src/RTree/impl/Point.cpp.i
 
-src/RTree/Point.s: src/RTree/Point.cpp.s
-.PHONY : src/RTree/Point.s
+src/RTree/impl/Point.s: src/RTree/impl/Point.cpp.s
+.PHONY : src/RTree/impl/Point.s
 
 # target to generate assembly for a file
-src/RTree/Point.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.s
-.PHONY : src/RTree/Point.cpp.s
+src/RTree/impl/Point.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Point.cpp.s
+.PHONY : src/RTree/impl/Point.cpp.s
 
-src/RTree/RTree.o: src/RTree/RTree.cpp.o
-.PHONY : src/RTree/RTree.o
+src/RTree/impl/Region.o: src/RTree/impl/Region.cpp.o
+.PHONY : src/RTree/impl/Region.o
 
 # target to build an object file
-src/RTree/RTree.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o
-.PHONY : src/RTree/RTree.cpp.o
+src/RTree/impl/Region.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Region.cpp.o
+.PHONY : src/RTree/impl/Region.cpp.o
 
-src/RTree/RTree.i: src/RTree/RTree.cpp.i
-.PHONY : src/RTree/RTree.i
+src/RTree/impl/Region.i: src/RTree/impl/Region.cpp.i
+.PHONY : src/RTree/impl/Region.i
 
 # target to preprocess a source file
-src/RTree/RTree.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.i
-.PHONY : src/RTree/RTree.cpp.i
+src/RTree/impl/Region.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Region.cpp.i
+.PHONY : src/RTree/impl/Region.cpp.i
 
-src/RTree/RTree.s: src/RTree/RTree.cpp.s
-.PHONY : src/RTree/RTree.s
+src/RTree/impl/Region.s: src/RTree/impl/Region.cpp.s
+.PHONY : src/RTree/impl/Region.s
 
 # target to generate assembly for a file
-src/RTree/RTree.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.s
-.PHONY : src/RTree/RTree.cpp.s
+src/RTree/impl/Region.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/Region.cpp.s
+.PHONY : src/RTree/impl/Region.cpp.s
 
-src/RTree/Region.o: src/RTree/Region.cpp.o
-.PHONY : src/RTree/Region.o
+src/RTree/impl/SimpleRTree.o: src/RTree/impl/SimpleRTree.cpp.o
+.PHONY : src/RTree/impl/SimpleRTree.o
 
 # target to build an object file
-src/RTree/Region.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o
-.PHONY : src/RTree/Region.cpp.o
+src/RTree/impl/SimpleRTree.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/SimpleRTree.cpp.o
+.PHONY : src/RTree/impl/SimpleRTree.cpp.o
 
-src/RTree/Region.i: src/RTree/Region.cpp.i
-.PHONY : src/RTree/Region.i
-
-# target to preprocess a source file
-src/RTree/Region.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.i
-.PHONY : src/RTree/Region.cpp.i
-
-src/RTree/Region.s: src/RTree/Region.cpp.s
-.PHONY : src/RTree/Region.s
-
-# target to generate assembly for a file
-src/RTree/Region.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.s
-.PHONY : src/RTree/Region.cpp.s
-
-src/RTree/SplitStrategy.o: src/RTree/SplitStrategy.cpp.o
-.PHONY : src/RTree/SplitStrategy.o
-
-# target to build an object file
-src/RTree/SplitStrategy.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o
-.PHONY : src/RTree/SplitStrategy.cpp.o
-
-src/RTree/SplitStrategy.i: src/RTree/SplitStrategy.cpp.i
-.PHONY : src/RTree/SplitStrategy.i
+src/RTree/impl/SimpleRTree.i: src/RTree/impl/SimpleRTree.cpp.i
+.PHONY : src/RTree/impl/SimpleRTree.i
 
 # target to preprocess a source file
-src/RTree/SplitStrategy.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.i
-.PHONY : src/RTree/SplitStrategy.cpp.i
+src/RTree/impl/SimpleRTree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/SimpleRTree.cpp.i
+.PHONY : src/RTree/impl/SimpleRTree.cpp.i
 
-src/RTree/SplitStrategy.s: src/RTree/SplitStrategy.cpp.s
-.PHONY : src/RTree/SplitStrategy.s
+src/RTree/impl/SimpleRTree.s: src/RTree/impl/SimpleRTree.cpp.s
+.PHONY : src/RTree/impl/SimpleRTree.s
 
 # target to generate assembly for a file
-src/RTree/SplitStrategy.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.s
-.PHONY : src/RTree/SplitStrategy.cpp.s
+src/RTree/impl/SimpleRTree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/src/RTree/impl/SimpleRTree.cpp.s
+.PHONY : src/RTree/impl/SimpleRTree.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -378,28 +367,26 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... rtree"
 	@echo "... rtree_app"
-	@echo "... src/DataGenerator.o"
-	@echo "... src/DataGenerator.i"
-	@echo "... src/DataGenerator.s"
-	@echo "... src/RTree/Entry.o"
-	@echo "... src/RTree/Entry.i"
-	@echo "... src/RTree/Entry.s"
-	@echo "... src/RTree/Node.o"
-	@echo "... src/RTree/Node.i"
-	@echo "... src/RTree/Node.s"
-	@echo "... src/RTree/Point.o"
-	@echo "... src/RTree/Point.i"
-	@echo "... src/RTree/Point.s"
-	@echo "... src/RTree/RTree.o"
-	@echo "... src/RTree/RTree.i"
-	@echo "... src/RTree/RTree.s"
-	@echo "... src/RTree/Region.o"
-	@echo "... src/RTree/Region.i"
-	@echo "... src/RTree/Region.s"
-	@echo "... src/RTree/SplitStrategy.o"
-	@echo "... src/RTree/SplitStrategy.i"
-	@echo "... src/RTree/SplitStrategy.s"
+	@echo "... src/RTree/impl/Data.o"
+	@echo "... src/RTree/impl/Data.i"
+	@echo "... src/RTree/impl/Data.s"
+	@echo "... src/RTree/impl/InternalNode.o"
+	@echo "... src/RTree/impl/InternalNode.i"
+	@echo "... src/RTree/impl/InternalNode.s"
+	@echo "... src/RTree/impl/LeafNode.o"
+	@echo "... src/RTree/impl/LeafNode.i"
+	@echo "... src/RTree/impl/LeafNode.s"
+	@echo "... src/RTree/impl/Point.o"
+	@echo "... src/RTree/impl/Point.i"
+	@echo "... src/RTree/impl/Point.s"
+	@echo "... src/RTree/impl/Region.o"
+	@echo "... src/RTree/impl/Region.i"
+	@echo "... src/RTree/impl/Region.s"
+	@echo "... src/RTree/impl/SimpleRTree.o"
+	@echo "... src/RTree/impl/SimpleRTree.i"
+	@echo "... src/RTree/impl/SimpleRTree.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

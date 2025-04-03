@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/rtree_demo.dir/src/main.cpp.o -o rtree_demo  librtree.a 

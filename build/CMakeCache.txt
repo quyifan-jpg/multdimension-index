@@ -145,7 +145,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MultidimensionIndex
+CMAKE_PROJECT_NAME:STATIC=RTree
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.0
@@ -238,6 +238,15 @@ PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+//Value Computed by CMake
+RTree_BINARY_DIR:STATIC=/users/Yifan32/multdimension-index/build
+
+//Value Computed by CMake
+RTree_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+RTree_SOURCE_DIR:STATIC=/users/Yifan32/multdimension-index
 
 //The directory containing a CMake configuration file for libspatialindex.
 libspatialindex_DIR:PATH=libspatialindex_DIR-NOTFOUND

@@ -69,24 +69,10 @@ include CMakeFiles/rtree_app.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/rtree_app.dir/flags.make
 
-CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o: ../src/DataGenerator.cpp
-CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o -MF CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o.d -o CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o -c /users/Yifan32/multdimension-index/src/DataGenerator.cpp
-
-CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/DataGenerator.cpp > CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.i
-
-CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/DataGenerator.cpp -o CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.s
-
 CMakeFiles/rtree_app.dir/src/main.cpp.o: CMakeFiles/rtree_app.dir/flags.make
 CMakeFiles/rtree_app.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/rtree_app.dir/src/main.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/rtree_app.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rtree_app.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/main.cpp.o -MF CMakeFiles/rtree_app.dir/src/main.cpp.o.d -o CMakeFiles/rtree_app.dir/src/main.cpp.o -c /users/Yifan32/multdimension-index/src/main.cpp
 
 CMakeFiles/rtree_app.dir/src/main.cpp.i: cmake_force
@@ -97,115 +83,18 @@ CMakeFiles/rtree_app.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/main.cpp -o CMakeFiles/rtree_app.dir/src/main.cpp.s
 
-CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o: ../src/RTree/Entry.cpp
-CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/Entry.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/Entry.cpp > CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/Entry.cpp -o CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.s
-
-CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o: ../src/RTree/Node.cpp
-CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/Node.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/Node.cpp > CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/Node.cpp -o CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.s
-
-CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o: ../src/RTree/Point.cpp
-CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/Point.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/Point.cpp > CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/Point.cpp -o CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.s
-
-CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o: ../src/RTree/RTree.cpp
-CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/RTree.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/RTree.cpp > CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/RTree.cpp -o CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.s
-
-CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o: ../src/RTree/Region.cpp
-CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/Region.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/Region.cpp > CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/Region.cpp -o CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.s
-
-CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o: CMakeFiles/rtree_app.dir/flags.make
-CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o: ../src/RTree/SplitStrategy.cpp
-CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o: CMakeFiles/rtree_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o -MF CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o.d -o CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o -c /users/Yifan32/multdimension-index/src/RTree/SplitStrategy.cpp
-
-CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /users/Yifan32/multdimension-index/src/RTree/SplitStrategy.cpp > CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.i
-
-CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /users/Yifan32/multdimension-index/src/RTree/SplitStrategy.cpp -o CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.s
-
 # Object files for target rtree_app
 rtree_app_OBJECTS = \
-"CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/main.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o" \
-"CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o"
+"CMakeFiles/rtree_app.dir/src/main.cpp.o"
 
 # External object files for target rtree_app
 rtree_app_EXTERNAL_OBJECTS =
 
-rtree_app: CMakeFiles/rtree_app.dir/src/DataGenerator.cpp.o
 rtree_app: CMakeFiles/rtree_app.dir/src/main.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/Entry.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/Node.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/Point.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/RTree.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/Region.cpp.o
-rtree_app: CMakeFiles/rtree_app.dir/src/RTree/SplitStrategy.cpp.o
 rtree_app: CMakeFiles/rtree_app.dir/build.make
+rtree_app: librtree.a
 rtree_app: CMakeFiles/rtree_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable rtree_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable rtree_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rtree_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

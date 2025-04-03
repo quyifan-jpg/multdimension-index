@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = /users/Yifan32/multdimension-index/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/rtree.dir/all
 all: CMakeFiles/rtree_app.dir/all
 .PHONY : all
 
@@ -71,17 +72,44 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/rtree.dir/clean
 clean: CMakeFiles/rtree_app.dir/clean
 .PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/rtree.dir
+
+# All Build rule for target.
+CMakeFiles/rtree.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target rtree"
+.PHONY : CMakeFiles/rtree.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/rtree.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /users/Yifan32/multdimension-index/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/rtree.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /users/Yifan32/multdimension-index/build/CMakeFiles 0
+.PHONY : CMakeFiles/rtree.dir/rule
+
+# Convenience name for target.
+rtree: CMakeFiles/rtree.dir/rule
+.PHONY : rtree
+
+# clean rule for target.
+CMakeFiles/rtree.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree.dir/build.make CMakeFiles/rtree.dir/clean
+.PHONY : CMakeFiles/rtree.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/rtree_app.dir
 
 # All Build rule for target.
-CMakeFiles/rtree_app.dir/all:
+CMakeFiles/rtree_app.dir/all: CMakeFiles/rtree.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target rtree_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=8,9 "Built target rtree_app"
 .PHONY : CMakeFiles/rtree_app.dir/all
 
 # Build rule for subdir invocation for target.
