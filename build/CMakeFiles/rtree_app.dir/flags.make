@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/users/Yifan32/multdimension-index
 
-CXX_FLAGS = -O3 -DNDEBUG -Wall -Wextra -pedantic -std=c++14
+CXX_FLAGS = -g -Wall -Wextra -pedantic -std=c++14
 

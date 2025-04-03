@@ -8,12 +8,12 @@ namespace RTree
         : m_dimension(dimension), m_nodeCapacity(nodeCapacity), m_nextId(1)
     {
         // 创建根节点(开始为叶子节点)
-        m_root = std::make_unique<LeafNode>(nodeCapacity);
+        m_root = new LeafNode(nodeCapacity);
     }
 
     RTree::~RTree()
     {
-        // unique_ptr会自动管理内存，不需要手动删除
+        delete m_root;
     }
 
     void RTree::insert(uint32_t dataLength, const uint8_t *pData, const Region &mbr, id_type id)
@@ -104,20 +104,17 @@ namespace RTree
             if (newNode)
             {
                 // 创建新的内部节点作为根
-                auto newRoot = std::make_unique<InternalNode>(m_nodeCapacity);
+                InternalNode *newRoot = new InternalNode(m_nodeCapacity);
                 newRoot->addChild(original);
                 newRoot->addChild(newNode);
 
-                m_root = std::move(newRoot);
+                m_root = newRoot;
             }
         }
     }
 
     Node *RTree::findLeaf(Node *node, const Region &mbr, id_type id)
     {
-        if (!node)
-            return nullptr;
-
         if (node->isLeaf())
         {
             LeafNode *leaf = static_cast<LeafNode *>(node);
@@ -157,7 +154,7 @@ namespace RTree
         if (newNode == nullptr)
         {
             // 如果是根节点，不需要再调整
-            if (node == m_root.get())
+            if (node == m_root)
             {
                 return;
             }
@@ -171,12 +168,12 @@ namespace RTree
         // 如果有新节点，需要处理分裂的情况
 
         // 如果分裂的是根节点，创建新的根
-        if (node == m_root.get())
+        if (node == m_root)
         {
-            auto newRoot = std::make_unique<InternalNode>(m_nodeCapacity);
+            InternalNode *newRoot = new InternalNode(m_nodeCapacity);
             newRoot->addChild(node);
             newRoot->addChild(newNode);
-            m_root = std::move(newRoot);
+            m_root = newRoot;
             return;
         }
 

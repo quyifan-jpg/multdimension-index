@@ -1,5 +1,4 @@
 /users/Yifan32/multdimension-index/build/CMakeFiles/rtree.dir
-/users/Yifan32/multdimension-index/build/CMakeFiles/rtree_test.dir
 /users/Yifan32/multdimension-index/build/CMakeFiles/rtree_app.dir
 /users/Yifan32/multdimension-index/build/CMakeFiles/edit_cache.dir
 /users/Yifan32/multdimension-index/build/CMakeFiles/rebuild_cache.dir

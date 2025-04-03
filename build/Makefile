@@ -175,19 +175,6 @@ rtree/fast:
 .PHONY : rtree/fast
 
 #=============================================================================
-# Target rules for targets named rtree_test
-
-# Build rule for target.
-rtree_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rtree_test
-.PHONY : rtree_test
-
-# fast build rule for target.
-rtree_test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_test.dir/build.make CMakeFiles/rtree_test.dir/build
-.PHONY : rtree_test/fast
-
-#=============================================================================
 # Target rules for targets named rtree_app
 
 # Build rule for target.
@@ -368,30 +355,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_app.dir/build.make CMakeFiles/rtree_app.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/test/RTreeTest.o: src/test/RTreeTest.cpp.o
-.PHONY : src/test/RTreeTest.o
-
-# target to build an object file
-src/test/RTreeTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_test.dir/build.make CMakeFiles/rtree_test.dir/src/test/RTreeTest.cpp.o
-.PHONY : src/test/RTreeTest.cpp.o
-
-src/test/RTreeTest.i: src/test/RTreeTest.cpp.i
-.PHONY : src/test/RTreeTest.i
-
-# target to preprocess a source file
-src/test/RTreeTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_test.dir/build.make CMakeFiles/rtree_test.dir/src/test/RTreeTest.cpp.i
-.PHONY : src/test/RTreeTest.cpp.i
-
-src/test/RTreeTest.s: src/test/RTreeTest.cpp.s
-.PHONY : src/test/RTreeTest.s
-
-# target to generate assembly for a file
-src/test/RTreeTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtree_test.dir/build.make CMakeFiles/rtree_test.dir/src/test/RTreeTest.cpp.s
-.PHONY : src/test/RTreeTest.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -406,7 +369,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... rtree"
 	@echo "... rtree_app"
-	@echo "... rtree_test"
 	@echo "... src/RTree/impl/Data.o"
 	@echo "... src/RTree/impl/Data.i"
 	@echo "... src/RTree/impl/Data.s"
@@ -428,9 +390,6 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/test/RTreeTest.o"
-	@echo "... src/test/RTreeTest.i"
-	@echo "... src/test/RTreeTest.s"
 .PHONY : help
 
 
