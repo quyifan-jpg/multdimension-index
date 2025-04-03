@@ -31,13 +31,23 @@ set(RTREE_SOURCES
     src/RTree/impl/SimpleRTree.cpp
 )
 
+# 设置测试代码的源文件
+set(TEST_SOURCES
+    src/test/RTreeTest.cpp
+)
+
 # 创建RTree静态库
 add_library(rtree STATIC ${RTREE_SOURCES})
 target_include_directories(rtree PUBLIC ${CMAKE_SOURCE_DIR})
 
-# 添加示例程序
+# 创建测试库
+add_library(rtree_test STATIC ${TEST_SOURCES})
+target_include_directories(rtree_test PUBLIC ${CMAKE_SOURCE_DIR})
+target_link_libraries(rtree_test PUBLIC rtree)
+
+# 添加主程序
 add_executable(rtree_app src/main.cpp)
-target_link_libraries(rtree_app PRIVATE rtree)
+target_link_libraries(rtree_app PRIVATE rtree rtree_test)
 
 # 安装规则（可选）
 install(TARGETS rtree rtree_app

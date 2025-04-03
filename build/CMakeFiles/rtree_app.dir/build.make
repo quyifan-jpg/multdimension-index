@@ -93,6 +93,8 @@ rtree_app_EXTERNAL_OBJECTS =
 rtree_app: CMakeFiles/rtree_app.dir/src/main.cpp.o
 rtree_app: CMakeFiles/rtree_app.dir/build.make
 rtree_app: librtree.a
+rtree_app: librtree_test.a
+rtree_app: librtree.a
 rtree_app: CMakeFiles/rtree_app.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/users/Yifan32/multdimension-index/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable rtree_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rtree_app.dir/link.txt --verbose=$(VERBOSE)

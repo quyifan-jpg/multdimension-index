@@ -11,6 +11,7 @@ namespace RTree
 
     // 前向声明
     class Node;
+
     using NodePtr = std::shared_ptr<Node>;
     using WeakNodePtr = std::weak_ptr<Node>;
 
@@ -184,7 +185,7 @@ namespace RTree
         uint32_t getNodeCapacity() const;
 
     private:
-        Node *m_root;
+        std::unique_ptr<Node> m_root;
         uint32_t m_dimension;
         uint32_t m_nodeCapacity;
         id_type m_nextId;
