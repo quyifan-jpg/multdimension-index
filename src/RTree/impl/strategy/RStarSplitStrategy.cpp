@@ -1,9 +1,6 @@
-#include "../Rtree.h"
-#include <algorithm>
-#include <limits>
-#include <cmath>
-#include <utility>
-#include <functional>
+#include "RStarSplitStrategy.h"
+
+#include "src/RTree/impl/node/Node.h"
 
 namespace RTree
 {

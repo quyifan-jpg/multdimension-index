@@ -7,31 +7,43 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Set compilation options
-if(MSVC)
+if (MSVC)
     add_compile_options(/W4)
-else()
+else ()
     add_compile_options(-Wall -Wextra -pedantic)
-endif()
+endif ()
 
 # Set debug/release mode
-if(NOT CMAKE_BUILD_TYPE)
+if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
-endif()
+endif ()
 
 # Add include directories
 include_directories(${CMAKE_SOURCE_DIR})
 
 # Set source files for RTree library
 set(RTREE_SOURCES
-    src/RTree/impl/Point.cpp
-    src/RTree/impl/Region.cpp
-    src/RTree/impl/Data.cpp
-    src/RTree/impl/LeafNode.cpp
-    src/RTree/impl/InternalNode.cpp
-    src/RTree/impl/SimpleRTree.cpp
-    src/RTree/impl/LinearSplitStrategy.cpp
-    src/RTree/impl/QuadraticSplitStrategy.cpp
-    src/RTree/impl/RStarSplitStrategy.cpp
+        src/RTree/impl/pojo/Point.cpp
+        src/RTree/impl/Region.cpp
+        src/RTree/impl/Data.cpp
+        src/RTree/impl/node/LeafNode.cpp
+        src/RTree/impl/node/InternalNode.cpp
+        src/RTree/impl/strategy/LinearSplitStrategy.cpp
+        src/RTree/impl/strategy/QuadraticSplitStrategy.cpp
+        src/RTree/impl/strategy/RStarSplitStrategy.cpp
+        src/RTree/impl/node/Node.h
+        src/RTree/impl/pojo/Point.h
+        src/RTree/impl/Region.h
+        src/RTree/impl/strategy/LinearSplitStrategy.h
+        src/RTree/impl/strategy/QuadraticSplitStrategy.h
+        src/RTree/impl/strategy/RStarSplitStrategy.h
+        src/RTree/impl/node/LeafNode.h
+        src/RTree/impl/node/InternalNode.h
+        src/RTree/impl/Data.h
+        src/RTree/impl/common.h
+        src/RTree/impl/strategy/SplitStrategy.h
+        src/RTree/impl/tree/RTree.h
+        src/RTree/impl/tree/RTree.cpp
 )
 
 # Create RTree static library

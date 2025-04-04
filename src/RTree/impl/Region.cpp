@@ -1,10 +1,11 @@
-#include "../Rtree.h"
-#include <cstring>
+
+#include "Region.h"
+
 #include <algorithm>
-#include <stdexcept>
-#include <cmath>
+#include <cstring>
 #include <limits>
-#include <cassert>
+#include <stdexcept>
+
 namespace RTree
 {
 

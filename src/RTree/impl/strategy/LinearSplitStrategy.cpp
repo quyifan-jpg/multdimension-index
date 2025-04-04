@@ -1,7 +1,4 @@
-#include "../Rtree.h"
-#include <algorithm>
-#include <limits>
-#include <cmath>
+#include "LinearSplitStrategy.h"
 
 namespace RTree
 {

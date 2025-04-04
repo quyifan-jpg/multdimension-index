@@ -1,6 +1,8 @@
-#include "../Rtree.h"
+
+
+#include "Point.h"
+
 #include <cstring>
-#include <algorithm>
 #include <stdexcept>
 
 namespace RTree

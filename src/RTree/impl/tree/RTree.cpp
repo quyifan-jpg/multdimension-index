@@ -1,5 +1,9 @@
-#include "../Rtree.h"
+#include "Rtree.h"
 #include <algorithm>
+
+#include "src/RTree/impl/node/InternalNode.h"
+#include "src/RTree/impl/node/LeafNode.h"
+#include "src/RTree/impl/strategy/LinearSplitStrategy.h"
 
 namespace RTree
 {

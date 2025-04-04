@@ -1,15 +1,17 @@
 // test_correctness.cpp
 // Tests the correctness of R-tree implementation by comparing search results between vector and R-tree
 
-#include "RTree/Rtree.h"
+
 #include <iostream>
-#include <vector>
-#include <string>
 #include <random>
-#include <chrono>
-#include <algorithm>
-#include <cassert>
 #include <set>
+#include <vector>
+#include <__random/random_device.h>
+
+#include "RTree/impl/strategy/LinearSplitStrategy.h"
+#include "RTree/impl/strategy/QuadraticSplitStrategy.h"
+#include "RTree/impl/strategy/RStarSplitStrategy.h"
+#include "RTree/impl/tree/RTree.h"
 
 // Define the structure of test data entry
 struct TestPoint
