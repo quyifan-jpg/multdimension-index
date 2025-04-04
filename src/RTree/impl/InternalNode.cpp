@@ -5,9 +5,11 @@
 namespace RTree
 {
 
-    InternalNode::InternalNode(uint32_t capacity) : m_capacity(capacity), m_mbr(0)
+    InternalNode::InternalNode(uint32_t capacity, const SplitStrategy *splitStrategy)
+        : m_capacity(capacity), m_mbr(0), total_entries(0)
     {
         // 初始化MBR为无效区域
+        m_splitStrategy = splitStrategy;
     }
 
     InternalNode::~InternalNode()
@@ -36,6 +38,7 @@ namespace RTree
         // 插入数据
         child->insert(data);
         total_entries++;
+
         // 检查是否需要分裂
         if (child->shouldSplit())
         {
@@ -119,30 +122,68 @@ namespace RTree
             return {this, nullptr};
         }
 
-        // 使用简单的二分分裂策略
-        InternalNode *newNode = new InternalNode(m_capacity);
-        size_t middle = m_children.size() / 2;
-
-        // 将后半部分子节点移动到新节点
-        for (size_t i = middle; i < m_children.size(); ++i)
+        // 使用指定的分裂策略或默认的二分分裂
+        if (m_splitStrategy)
         {
-            newNode->addChild(m_children[i]);
+            // 使用策略分裂子节点
+            auto [group1, group2] = m_splitStrategy->splitInternalChildren(m_children, m_capacity);
+
+            // 创建新节点
+            InternalNode *newNode = new InternalNode(m_capacity, m_splitStrategy);
+
+            // 清空当前节点的子节点（但不删除，因为它们会被重新分配）
+            std::vector<Node *> originalChildren = std::move(m_children);
+            m_children.clear();
+
+            // 添加第一组子节点到当前节点
+            for (auto *child : group1)
+            {
+                m_children.push_back(child);
+            }
+
+            // 添加第二组子节点到新节点
+            for (auto *child : group2)
+            {
+                newNode->addChild(child);
+            }
+
+            // 重新计算MBR
+            recalculateMBR();
+            newNode->recalculateMBR();
+
+
+
+            return {this, newNode};
         }
+        else
+        {
+            // 使用简单的二分分裂策略
+            InternalNode *newNode = new InternalNode(m_capacity);
+            size_t middle = m_children.size() / 2;
 
-        // 删除原节点已移动的子节点(但不删除Node对象，已转移所有权)
-        m_children.resize(middle);
+            // 将后半部分子节点移动到新节点
+            for (size_t i = middle; i < m_children.size(); ++i)
+            {
+                newNode->addChild(m_children[i]);
+            }
 
-        // 重新计算MBR
-        recalculateMBR();
-        newNode->recalculateMBR();
+            // 删除原节点已移动的子节点(但不删除Node对象，已转移所有权)
+            m_children.resize(middle);
 
-        return {this, newNode};
+            // 重新计算MBR
+            recalculateMBR();
+            newNode->recalculateMBR();
+
+            return {this, newNode};
+        }
     }
 
     void InternalNode::addChild(Node *child)
     {
         m_children.push_back(child);
         recalculateMBR();
+
+
     }
 
     void InternalNode::recalculateMBR()
@@ -158,7 +199,7 @@ namespace RTree
 
         // 合并其他所有子节点的MBR
         for (size_t i = 1; i < m_children.size(); ++i)
-        {   
+        {
             Region mbr = m_children[i]->getMBR();
             m_mbr.combine(mbr);
         }

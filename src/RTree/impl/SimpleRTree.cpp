@@ -3,13 +3,20 @@
 
 namespace RTree
 {
-
-
-    RTree::RTree(uint32_t dimension, uint32_t nodeCapacity)
+    // 创建全局静态的LinearSplitStrategy实例
+    static const LinearSplitStrategy s_defaultSplitStrategy;
+    RTree::RTree(uint32_t dimension, uint32_t nodeCapacity, const SplitStrategy *splitStrategy)
         : m_dimension(dimension), m_nodeCapacity(nodeCapacity), m_nextId(1)
     {
-
-        m_root_node = new LeafNode(nodeCapacity);
+        if (splitStrategy)
+        {
+            setSplitStrategy(splitStrategy);
+        }
+        else
+        {
+            setSplitStrategy(&s_defaultSplitStrategy);
+        }
+        m_root_node = new LeafNode(nodeCapacity, m_splitStrategy);
     }
 
     RTree::~RTree()
@@ -101,6 +108,12 @@ namespace RTree
         return m_root_node->getHeight();
     }
 
+    void RTree::setSplitStrategy(const SplitStrategy *splitStrategy)
+    {
+        // 如果没有提供分裂策略，继续使用默认的LinearSplitStrategy
+        m_splitStrategy = splitStrategy ? splitStrategy : &s_defaultSplitStrategy;
+    }
+
     void RTree::insertData_impl(Data *data)
     {
         // 将数据插入到根节点
@@ -114,7 +127,7 @@ namespace RTree
             if (newNode)
             {
                 // 创建新的内部节点作为根
-                InternalNode *newRoot = new InternalNode(m_nodeCapacity);
+                InternalNode *newRoot = new InternalNode(m_nodeCapacity, m_splitStrategy);
                 newRoot->addChild(original);
                 newRoot->addChild(newNode);
 
@@ -180,7 +193,7 @@ namespace RTree
         // 如果分裂的是根节点，创建新的根
         if (node == m_root_node)
         {
-            InternalNode *newRoot = new InternalNode(m_nodeCapacity);
+            InternalNode *newRoot = new InternalNode(m_nodeCapacity, m_splitStrategy);
             newRoot->addChild(node);
             newRoot->addChild(newNode);
             m_root_node = newRoot;

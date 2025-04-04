@@ -29,6 +29,8 @@ set(RTREE_SOURCES
     src/RTree/impl/LeafNode.cpp
     src/RTree/impl/InternalNode.cpp
     src/RTree/impl/SimpleRTree.cpp
+    src/RTree/impl/LinearSplitStrategy.cpp
+    src/RTree/impl/QuadraticSplitStrategy.cpp
 )
 
 # 创建RTree静态库

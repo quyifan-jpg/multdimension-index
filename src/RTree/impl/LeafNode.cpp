@@ -4,9 +4,11 @@
 namespace RTree
 {
 
-    LeafNode::LeafNode(uint32_t capacity) : m_capacity(capacity), m_mbr(0)
+    LeafNode::LeafNode(uint32_t capacity, const SplitStrategy *splitStrategy)
+        : m_capacity(capacity), m_mbr(0)
     {
         // 初始化MBR为维度dimension的无效区域
+        m_splitStrategy = splitStrategy;
     }
 
     LeafNode::~LeafNode()
@@ -77,28 +79,52 @@ namespace RTree
             return {this, nullptr};
         }
 
-        // 使用简单的二分分裂策略
-        LeafNode *newNode = new LeafNode(m_capacity);
-        size_t middle = m_entries.size() / 2;
-
-        // 将后半部分数据复制到新节点
-        for (size_t i = middle; i < m_entries.size(); ++i)
+        // 使用指定的分裂策略或默认的二分分裂
+        if (m_splitStrategy)
         {
-            Data *dataCopy = m_entries[i]->clone();
-            newNode->insert(dataCopy);
-        }
+            auto [group1, group2] = m_splitStrategy->splitLeafEntries(m_entries, m_capacity);
+            LeafNode *newNode = new LeafNode(m_capacity, m_splitStrategy);
 
-        // 删除原节点已复制的数据
-        for (size_t i = m_entries.size() - 1; i >= middle; --i)
+            std::vector<Data *> originalEntries = std::move(m_entries);
+            m_entries.clear();
+            for (auto *entry : group1)
+            {
+                m_entries.push_back(entry);
+            }
+            for (auto *entry : group2)
+            {
+                newNode->insert(entry);
+            }
+            recalculateMBR();
+            newNode->recalculateMBR();
+
+            return {this, newNode};
+        }
+        else
         {
-            delete m_entries[i];
-            m_entries.pop_back();
+            // 使用简单的二分分裂策略
+            LeafNode *newNode = new LeafNode(m_capacity);
+            size_t middle = m_entries.size() / 2;
+
+            // 将后半部分数据复制到新节点
+            for (size_t i = middle; i < m_entries.size(); ++i)
+            {
+                Data *dataCopy = m_entries[i]->clone();
+                newNode->insert(dataCopy);
+            }
+
+            // 删除原节点已复制的数据
+            for (size_t i = m_entries.size() - 1; i >= middle; --i)
+            {
+                delete m_entries[i];
+                m_entries.pop_back();
+            }
+
+            // 重新计算MBR
+            recalculateMBR();
+            newNode->recalculateMBR();
+            return {this, newNode};
         }
-
-        // 重新计算MBR
-        recalculateMBR();
-
-        return {this, newNode};
     }
 
     void LeafNode::recalculateMBR()

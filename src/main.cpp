@@ -95,8 +95,13 @@ int main()
     const double MIN_X = 0.0, MAX_X = 100.0;
     const double MIN_Y = 0.0, MAX_Y = 100.0;
 
+    // 测试统计
+    int testsPassed = 0;
+    int totalTests = 0;
+
     // 创建一个2维R树，节点容量为16
-    RTree::RTree rtree(2, 16);
+    RTree::QuadraticSplitStrategy quadraticSplitStrategy;
+    RTree::RTree rtree(2, 16, &quadraticSplitStrategy);
 
     // 生成随机点
     std::vector<TestPoint> points = generateRandomPoints(NUM_POINTS, MIN_X, MAX_X, MIN_Y, MAX_Y);
@@ -179,7 +184,10 @@ int main()
         }
 
         // 验证结果
+        totalTests++;
         bool querySuccess = compareResults(expectedResults, actualResults);
+        if (querySuccess)
+            testsPassed++;
         printTestResult(qr.name, querySuccess);
         std::cout << "    Found " << actualResults.size() << " results in "
                   << queryDuration << " microseconds" << std::endl;
@@ -267,13 +275,19 @@ int main()
         }
 
         // 验证结果
+        totalTests++;
         bool querySuccess = compareResults(expectedResults, actualResults);
+        if (querySuccess)
+            testsPassed++;
         printTestResult(qr.name + " after deletion", querySuccess);
         std::cout << "    Found " << actualResults.size() << " results in "
                   << queryDuration << " microseconds" << std::endl;
     }
 
     std::cout << std::endl;
+    std::cout << "===== Correctness Test Summary =====" << std::endl;
+    std::cout << "Tests passed: " << testsPassed << " / " << totalTests << " ("
+              << (totalTests > 0 ? (testsPassed * 100.0 / totalTests) : 0) << "%)" << std::endl;
     std::cout << "===== Correctness Test Completed =====" << std::endl;
 
     return 0;
