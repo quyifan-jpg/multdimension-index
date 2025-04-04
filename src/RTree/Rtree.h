@@ -38,7 +38,7 @@ namespace RTree
     class Region
     {
     public:
-        Region(uint32_t dimension = 2);
+        Region(uint32_t  m_dimension = 2);
         Region(const double *low, const double *high, uint32_t dimension);
         Region(const Point &low, const Point &high);
         Region(const Region &other);
@@ -109,14 +109,16 @@ namespace RTree
         virtual bool shouldSplit() const = 0;
         virtual std::pair<Node *, Node *> split() = 0;
         virtual uint32_t getHeight() const = 0;
-        virtual Node *chooseSubtree(const Region &mbr){};
+        virtual Node *chooseSubtree(const Region &mbr){
+            return this;
+        };
     };
 
     // 叶子节点
     class LeafNode : public Node
     {
     public:
-        LeafNode(uint32_t capacity = 8);
+        LeafNode( uint32_t capacity = 8);
         ~LeafNode() override;
 
         bool isLeaf() const override;
@@ -161,6 +163,7 @@ namespace RTree
         uint32_t m_capacity;
         std::vector<Node *> m_children;
         Region m_mbr;
+
 
         void recalculateMBR();
         Node *chooseSubtree(const Region &mbr) const;

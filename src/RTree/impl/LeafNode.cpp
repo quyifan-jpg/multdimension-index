@@ -6,7 +6,7 @@ namespace RTree
 
     LeafNode::LeafNode(uint32_t capacity) : m_capacity(capacity), m_mbr(0)
     {
-        // 初始化MBR为无效区域
+        // 初始化MBR为维度dimension的无效区域
     }
 
     LeafNode::~LeafNode()

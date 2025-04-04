@@ -4,10 +4,11 @@
 namespace RTree
 {
 
+
     RTree::RTree(uint32_t dimension, uint32_t nodeCapacity)
         : m_dimension(dimension), m_nodeCapacity(nodeCapacity), m_nextId(1)
     {
-        // 创建根节点(开始为叶子节点)
+
         m_root_node = new LeafNode(nodeCapacity);
     }
 

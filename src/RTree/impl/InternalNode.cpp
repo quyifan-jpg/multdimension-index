@@ -35,7 +35,7 @@ namespace RTree
 
         // 插入数据
         child->insert(data);
-
+        total_entries++;
         // 检查是否需要分裂
         if (child->shouldSplit())
         {
@@ -61,6 +61,7 @@ namespace RTree
                 if (child->remove(id, mbr))
                 {
                     found = true;
+                    total_entries--;
                     break; // 找到并删除了，就不需要继续查找
                 }
             }
@@ -157,8 +158,9 @@ namespace RTree
 
         // 合并其他所有子节点的MBR
         for (size_t i = 1; i < m_children.size(); ++i)
-        {
-            m_mbr.combine(m_children[i]->getMBR());
+        {   
+            Region mbr = m_children[i]->getMBR();
+            m_mbr.combine(mbr);
         }
     }
 
@@ -169,70 +171,42 @@ namespace RTree
             return nullptr;
         }
 
-        // 如果子节点是叶子，选择扩展最小的节点
+        // 为所有子节点使用统一的选择标准
+        double minEnlargement = std::numeric_limits<double>::max();
+        Node *bestChild = nullptr;
 
-        auto bestChild = m_children[0];
-        if (bestChild->isLeaf())
+        for (Node *child : m_children)
         {
-            double minEnlargement = std::numeric_limits<double>::max();
-            Node *bestChild = nullptr;
+            // 计算合并后的区域面积增加量
+            Region combined = child->getMBR();
+            double originalArea = combined.getArea();
+            combined.combine(mbr);
+            double enlargement = combined.getArea() - originalArea;
 
-            for (Node *child : m_children)
+            // 主要标准：最小扩展
+            if (bestChild == nullptr || enlargement < minEnlargement)
             {
-                // 计算合并后的区域面积增加量
-                Region combined = child->getMBR();
-                double originalArea = combined.getArea();
-                combined.combine(mbr);
-                double enlargement = combined.getArea() - originalArea;
-
-                if (bestChild == nullptr || enlargement < minEnlargement)
+                minEnlargement = enlargement;
+                bestChild = child;
+            }
+            // 次要标准：如果扩展相同，选择面积较小的
+            else if (enlargement == minEnlargement)
+            {
+                if (child->getMBR().getArea() < bestChild->getMBR().getArea())
                 {
-                    minEnlargement = enlargement;
                     bestChild = child;
                 }
-                else if (enlargement == minEnlargement)
-                {
-                    // 如果扩展相同，选择面积较小的
-                    if (child->getMBR().getArea() < bestChild->getMBR().getArea())
-                    {
-                        bestChild = child;
-                    }
-                }
             }
-
-            return bestChild;
         }
-        else
+
+        // 如果最佳子节点是内部节点，则递归进入
+        if (!bestChild->isLeaf())
         {
-            // 子节点是内部节点，递归选择
-            double minEnlargement = std::numeric_limits<double>::max();
-            Node *bestChild = nullptr;
-
-            for (Node *child : m_children)
-            {
-                // 计算合并后的区域面积增加量
-                Region combined = child->getMBR();
-                double originalArea = combined.getArea();
-                combined.combine(mbr);
-                double enlargement = combined.getArea() - originalArea;
-
-                if (bestChild == nullptr || enlargement < minEnlargement)
-                {
-                    minEnlargement = enlargement;
-                    bestChild = child;
-                }
-                else if (enlargement == minEnlargement)
-                {
-                    // 如果扩展相同，选择面积较小的
-                    if (child->getMBR().getArea() < bestChild->getMBR().getArea())
-                    {
-                        bestChild = child;
-                    }
-                }
-            }
-            Node *result = bestChild->chooseSubtree(mbr); // 递归进入选择的子树
-            return result;
+            return static_cast<InternalNode *>(bestChild)->chooseSubtree(mbr);
         }
+
+        // 否则返回找到的叶子节点
+        return bestChild;
     }
 
     uint32_t InternalNode::getHeight() const
