@@ -42,13 +42,6 @@ target_include_directories(rtree PUBLIC ${CMAKE_SOURCE_DIR})
 add_executable(rtree_app src/main.cpp)
 target_link_libraries(rtree_app PRIVATE rtree)
 
-# Installation rules (optional)
-install(TARGETS rtree rtree_app
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
-install(FILES src/RTree/Rtree.h DESTINATION include/RTree)
-
 # Output configuration information
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}") 
