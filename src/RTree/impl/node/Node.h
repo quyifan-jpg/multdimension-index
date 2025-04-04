@@ -21,6 +21,7 @@ namespace RTree{
         virtual const Region &getMBR() const = 0;
         virtual void insert(Data *data) = 0;
         virtual bool remove(id_type id, const Region &mbr) = 0;
+        virtual bool isEmpty() = 0;
         virtual std::vector<Data *> search(const Region &query) = 0;
         virtual bool shouldSplit() const = 0;
         virtual std::pair<Node *, Node *> split() = 0;

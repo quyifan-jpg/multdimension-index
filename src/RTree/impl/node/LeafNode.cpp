@@ -57,6 +57,10 @@ namespace RTree
         return false;
     }
 
+    bool LeafNode::isEmpty() {
+        return m_entries.empty();
+    }
+
     std::vector<Data *> LeafNode::search(const Region &query)
     {
         std::vector<Data *> results;

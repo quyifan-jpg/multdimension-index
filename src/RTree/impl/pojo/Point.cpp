@@ -1,5 +1,3 @@
-
-
 #include "Point.h"
 
 #include <cstring>

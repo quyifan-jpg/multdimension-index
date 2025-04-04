@@ -20,6 +20,7 @@ namespace RTree {
         const Region &getMBR() const override;
         void insert(Data *data) override;
         bool remove(id_type id, const Region &mbr) override;
+        bool isEmpty() override;
         std::vector<Data *> search(const Region &query) override;
         bool shouldSplit() const override;
         std::pair<Node *, Node *> split() override;

@@ -1,5 +1,3 @@
-
-
 #include "QuadraticSplitStrategy.h"
 
 #include "src/RTree/impl/node/Node.h"

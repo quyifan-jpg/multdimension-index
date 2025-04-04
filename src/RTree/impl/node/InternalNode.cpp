@@ -70,9 +70,7 @@ namespace RTree {
             // Check if there are empty child nodes that can be deleted
             auto it = std::remove_if(m_children.begin(), m_children.end(),
                                      [](Node *child) {
-                                         if (child->isLeaf()
-                                                 ? static_cast<LeafNode *>(child)->m_entries.empty()
-                                                 : static_cast<InternalNode *>(child)->m_children.empty()) {
+                                         if (child->isEmpty()) {
                                              delete child;
                                              return true;
                                          }
@@ -83,6 +81,10 @@ namespace RTree {
         }
 
         return found;
+    }
+
+    bool InternalNode::isEmpty() {
+        return m_children.empty();
     }
 
     std::vector<Data *> InternalNode::search(const Region &query) {
