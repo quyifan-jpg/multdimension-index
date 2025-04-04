@@ -5,7 +5,7 @@
 
 namespace RTree
 {
-    // 添加显式的默认构造函数和析构函数定义，以确保虚函数表正确生成
+    // Add explicit default constructor and destructor definitions to ensure the virtual function table is generated correctly
     QuadraticSplitStrategy::QuadraticSplitStrategy() = default;
     QuadraticSplitStrategy::~QuadraticSplitStrategy() = default;
 
@@ -15,14 +15,14 @@ namespace RTree
         std::vector<Data *> group1;
         std::vector<Data *> group2;
 
-        // 找出最佳的两个种子条目
+        // Find the best two seed entries
         auto [seed1, seed2] = pickSeeds(entries);
 
-        // 将种子条目分配到两个组
+        // Assign seed entries to two groups
         group1.push_back(entries[seed1]);
         group2.push_back(entries[seed2]);
 
-        // 创建工作副本，以跟踪尚未分配的条目
+        // Create working copy to track unassigned entries
         std::vector<Data *> remaining;
         for (size_t i = 0; i < entries.size(); ++i)
         {
@@ -32,17 +32,17 @@ namespace RTree
             }
         }
 
-        // 确保每个组至少有capacity/2个条目
+        // Ensure each group has at least capacity/2 entries
         uint32_t minEntries = capacity / 2;
 
-        // 计算初始MBR
+        // Calculate initial MBR
         Region mbr1 = group1[0]->getRegion();
         Region mbr2 = group2[0]->getRegion();
 
-        // 将剩余条目分配到适当的组
+        // Assign remaining entries to appropriate groups
         while (!remaining.empty())
         {
-            // 如果一个组的条目太少，将剩余的全部分配给它
+            // If one group has too few entries, assign all remaining to it
             if (group1.size() + remaining.size() <= minEntries)
             {
                 for (auto &entry : remaining)
@@ -64,26 +64,26 @@ namespace RTree
                 break;
             }
 
-            // 计算每个条目的面积增长并选择增长最大的条目
+            // Calculate area growth for each entry and select the one with the most growth
             double maxDiff = -std::numeric_limits<double>::max();
             size_t selectedIndex = 0;
-            size_t targetGroup = 0; // 0表示group1, 1表示group2
+            size_t targetGroup = 0; // 0 means group1, 1 means group2
 
             for (size_t i = 0; i < remaining.size(); ++i)
             {
                 const Region &entryRegion = remaining[i]->getRegion();
 
-                // 计算将条目分配到group1后的面积增长
+                // Calculate area growth after assigning the entry to group1
                 Region combinedMbr1 = mbr1;
                 combinedMbr1.combine(entryRegion);
                 double growth1 = combinedMbr1.getArea() - mbr1.getArea();
 
-                // 计算将条目分配到group2后的面积增长
+                // Calculate area growth after assigning the entry to group2
                 Region combinedMbr2 = mbr2;
                 combinedMbr2.combine(entryRegion);
                 double growth2 = combinedMbr2.getArea() - mbr2.getArea();
 
-                // 计算增长差异
+                // Calculate growth difference
                 double diff = std::abs(growth1 - growth2);
                 if (diff > maxDiff)
                 {
@@ -93,7 +93,7 @@ namespace RTree
                 }
             }
 
-            // 将选中的条目分配到目标组
+            // Assign the selected entry to the target group
             Data *selectedEntry = remaining[selectedIndex];
             if (targetGroup == 0)
             {
@@ -106,7 +106,7 @@ namespace RTree
                 mbr2.combine(selectedEntry->getRegion());
             }
 
-            // 从未分配列表中移除该条目
+            // Remove the entry from the unassigned list
             remaining.erase(remaining.begin() + selectedIndex);
         }
 
@@ -121,14 +121,14 @@ namespace RTree
         std::vector<Node *> group1;
         std::vector<Node *> group2;
 
-        // 找出最佳的两个种子节点
+        // Find the best two seed nodes
         auto [seed1, seed2] = pickSeeds(children);
 
-        // 将种子节点分配到两个组
+        // Assign seed nodes to two groups
         group1.push_back(children[seed1]);
         group2.push_back(children[seed2]);
 
-        // 创建工作副本，以跟踪尚未分配的节点
+        // Create working copy to track unassigned nodes
         std::vector<Node *> remaining;
         for (size_t i = 0; i < children.size(); ++i)
         {
@@ -138,17 +138,17 @@ namespace RTree
             }
         }
 
-        // 确保每个组至少有capacity/2个子节点
+        // Ensure each group has at least capacity/2 child nodes
         uint32_t minChildren = capacity / 2;
 
-        // 计算初始MBR
+        // Calculate initial MBR
         Region mbr1 = group1[0]->getMBR();
         Region mbr2 = group2[0]->getMBR();
 
-        // 将剩余节点分配到适当的组
+        // Assign remaining nodes to appropriate groups
         while (!remaining.empty())
         {
-            // 如果一个组的节点太少，将剩余的全部分配给它
+            // If one group has too few nodes, assign all remaining to it
             if (group1.size() + remaining.size() <= minChildren)
             {
                 for (auto &child : remaining)
@@ -170,26 +170,26 @@ namespace RTree
                 break;
             }
 
-            // 计算每个节点的面积增长并选择增长最大的节点
+            // Calculate area growth for each node and select the one with the most growth
             double maxDiff = -std::numeric_limits<double>::max();
             size_t selectedIndex = 0;
-            size_t targetGroup = 0; // 0表示group1, 1表示group2
+            size_t targetGroup = 0; // 0 means group1, 1 means group2
 
             for (size_t i = 0; i < remaining.size(); ++i)
             {
                 const Region &childMbr = remaining[i]->getMBR();
 
-                // 计算将节点分配到group1后的面积增长
+                // Calculate area growth after assigning the node to group1
                 Region combinedMbr1 = mbr1;
                 combinedMbr1.combine(childMbr);
                 double growth1 = combinedMbr1.getArea() - mbr1.getArea();
 
-                // 计算将节点分配到group2后的面积增长
+                // Calculate area growth after assigning the node to group2
                 Region combinedMbr2 = mbr2;
                 combinedMbr2.combine(childMbr);
                 double growth2 = combinedMbr2.getArea() - mbr2.getArea();
 
-                // 计算增长差异
+                // Calculate growth difference
                 double diff = std::abs(growth1 - growth2);
                 if (diff > maxDiff)
                 {
@@ -199,7 +199,7 @@ namespace RTree
                 }
             }
 
-            // 将选中的节点分配到目标组
+            // Assign the selected node to the target group
             Node *selectedChild = remaining[selectedIndex];
             if (targetGroup == 0)
             {
@@ -212,7 +212,7 @@ namespace RTree
                 mbr2.combine(selectedChild->getMBR());
             }
 
-            // 从未分配列表中移除该节点
+            // Remove the node from the unassigned list
             remaining.erase(remaining.begin() + selectedIndex);
         }
 
@@ -225,7 +225,7 @@ namespace RTree
         size_t seed2 = 0;
         double maxWastedArea = -1.0;
 
-        // 寻找组合后浪费面积最大的一对
+        // Find the best two seed entries
         for (size_t i = 0; i < entries.size(); ++i)
         {
             const Region &region1 = entries[i]->getRegion();
@@ -234,11 +234,11 @@ namespace RTree
             {
                 const Region &region2 = entries[j]->getRegion();
 
-                // 计算合并后的区域
+                // Calculate merged region
                 Region combinedRegion = region1;
                 combinedRegion.combine(region2);
 
-                // 计算浪费的面积 = 合并区域面积 - 两个原始区域的面积
+                // Calculate wasted area = merged region area - two original regions area
                 double wastedArea = combinedRegion.getArea() - region1.getArea() - region2.getArea();
 
                 if (wastedArea > maxWastedArea)
@@ -259,7 +259,7 @@ namespace RTree
         size_t seed2 = 0;
         double maxWastedArea = -1.0;
 
-        // 寻找组合后浪费面积最大的一对
+        // Find the best two seed nodes
         for (size_t i = 0; i < children.size(); ++i)
         {
             const Region &region1 = children[i]->getMBR();
@@ -268,11 +268,11 @@ namespace RTree
             {
                 const Region &region2 = children[j]->getMBR();
 
-                // 计算合并后的区域
+                // Calculate merged region
                 Region combinedRegion = region1;
                 combinedRegion.combine(region2);
 
-                // 计算浪费的面积 = 合并区域面积 - 两个原始区域的面积
+                // Calculate wasted area = merged region area - two original regions area
                 double wastedArea = combinedRegion.getArea() - region1.getArea() - region2.getArea();
 
                 if (wastedArea > maxWastedArea)

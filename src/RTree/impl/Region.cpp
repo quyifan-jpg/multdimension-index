@@ -159,7 +159,7 @@ namespace RTree
         {
             margin += (m_pHigh[i] - m_pLow[i]);
         }
-        return margin * 2.0; // 每个维度的长度需要算两次（对边）
+        return margin * 2.0; // Length of each dimension needs to be counted twice (opposite edges)
     }
 
     double Region::getMinDistance(const Point &point) const
@@ -214,7 +214,8 @@ namespace RTree
     void Region::combine(const Region &other)
     {
         // empty region
-        if (other.m_dimension == 0){
+        if (other.m_dimension == 0)
+        {
             return;
         }
 
@@ -249,7 +250,7 @@ namespace RTree
 
         if (out.m_dimension != m_dimension)
         {
-            // 调整out的维度
+            // Adjust the dimension of out
             out = Region(m_dimension);
         }
 

@@ -1,4 +1,4 @@
-// RTree.h - 一个简化的R树实现
+// RTree.h - A simplified R-tree implementation
 
 #pragma once
 
@@ -12,12 +12,12 @@
 namespace RTree
 {
 
-    // 前向声明
+    // Forward declarations
     class Node;
     using NodePtr = std::shared_ptr<Node>;
     using WeakNodePtr = std::weak_ptr<Node>;
 
-    // 基本几何类定义
+    // Basic geometry class definitions
     class Point
     {
     public:
@@ -73,10 +73,10 @@ namespace RTree
         double *m_pHigh;
     };
 
-    // 基本数据类型定义
+    // Basic data type definitions
     typedef int64_t id_type;
 
-    // 数据实体类
+    // Data entity class
     class Data
     {
     public:
@@ -95,15 +95,14 @@ namespace RTree
         uint32_t m_dataLength;
     };
 
-    // 前向声明
+    // Forward declarations
     class LeafNode;
     class InternalNode;
 
-    // 分裂策略接口
+    // Split strategy interface
     class SplitStrategy
     {
     public:
-        
         virtual ~SplitStrategy() = default;
 
         virtual std::pair<std::vector<Data *>, std::vector<Data *>>
@@ -114,13 +113,13 @@ namespace RTree
     };
 
     /**
-     * 线性分裂策略
-     * 简单地将节点平均分成两部分
+     * Linear split strategy
+     * Simply divides the node into two equal parts
      */
     class LinearSplitStrategy : public SplitStrategy
     {
     public:
-        // 添加显式默认构造函数和析构函数
+        // Add explicit default constructor and destructor
         LinearSplitStrategy();
         ~LinearSplitStrategy() override;
 
@@ -133,14 +132,10 @@ namespace RTree
         std::string getName() const override;
     };
 
-    /**
-     * 二次分裂策略
-     * 使用二次算法选择种子节点进行分裂
-     */
     class QuadraticSplitStrategy : public SplitStrategy
     {
     public:
-        // 添加显式默认构造函数和析构函数
+        // Add explicit default constructor and destructor
         QuadraticSplitStrategy();
         ~QuadraticSplitStrategy() override;
 
@@ -153,30 +148,33 @@ namespace RTree
         std::string getName() const override;
 
     private:
-        /**
-         * 找出两个最适合作为分裂种子的条目
-         * @param entries 数据条目集合
-         * @return 包含两个种子条目索引的对
-         */
         std::pair<size_t, size_t> pickSeeds(const std::vector<Data *> &entries) const;
-
-        /**
-         * 找出两个最适合作为分裂种子的节点
-         * @param children 子节点集合
-         * @return 包含两个种子节点索引的对
-         */
         std::pair<size_t, size_t> pickSeeds(const std::vector<Node *> &children) const;
-
-        /**
-         * 计算合并两个区域后的面积增加量
-         * @param r1 第一个区域
-         * @param r2 第二个区域
-         * @return 合并后的面积增加量
-         */
         double calculateAreaEnlargement(const Region &r1, const Region &r2) const;
     };
 
-    // R树的节点类
+    // R*-tree split strategy
+    class RStarSplitStrategy : public SplitStrategy
+    {
+    public:
+        // Add explicit default constructor and destructor
+        RStarSplitStrategy();
+        ~RStarSplitStrategy() override;
+
+        std::pair<std::vector<Data *>, std::vector<Data *>>
+        splitLeafEntries(const std::vector<Data *> &entries, uint32_t capacity) const override;
+
+        std::pair<std::vector<Node *>, std::vector<Node *>>
+        splitInternalChildren(const std::vector<Node *> &children, uint32_t capacity) const override;
+
+        std::string getName() const override;
+
+    private:
+        // Helper method to calculate overlap area between two regions
+        double calculateOverlapArea(const Region &region1, const Region &region2, uint32_t dimension) const;
+    };
+
+    // R-tree node class
     class Node : public std::enable_shared_from_this<Node>
     {
     public:
@@ -194,7 +192,7 @@ namespace RTree
             return this;
         };
 
-        // 设置分裂策略
+        // Set split strategy
         void setSplitStrategy(const SplitStrategy *strategy)
         {
             m_splitStrategy = strategy;
@@ -204,7 +202,7 @@ namespace RTree
         const SplitStrategy *m_splitStrategy = nullptr;
     };
 
-    // 叶子节点
+    // Leaf node
     class LeafNode : public Node
     {
     public:
@@ -231,7 +229,7 @@ namespace RTree
         friend class InternalNode;
     };
 
-    // 内部节点
+    // Internal node
     class InternalNode : public Node
     {
     public:
@@ -253,7 +251,7 @@ namespace RTree
         uint32_t m_capacity;
         std::vector<Node *> m_children;
         Region m_mbr;
-        uint32_t total_entries = 0; // 追踪子树中的条目总数
+        uint32_t total_entries = 0; // Track total entries in subtree
 
         void recalculateMBR();
         Node *chooseSubtree(const Region &mbr) const;
@@ -261,7 +259,7 @@ namespace RTree
         friend class RTree;
     };
 
-    // 简单R树主类
+    // Simple R-tree main class
     class RTree
     {
     public:
@@ -271,17 +269,17 @@ namespace RTree
         void insert(uint32_t dataLength, const uint8_t *pData, const Region &mbr, id_type id);
         bool remove(const Region &mbr, id_type id);
 
-        // 查询方法 - 返回结果集而不使用访问者模式
+        // Query method - Return result set without using visitor pattern
         std::vector<Data *> intersectionQuery(const Region &query);
         std::vector<Data *> containmentQuery(const Region &query);
         std::vector<Data *> pointQuery(const Point &point);
 
-        // 辅助方法
+        // Helper methods
         uint32_t getDimension() const;
         uint32_t getNodeCapacity() const;
         uint32_t getHeight() const;
 
-        // 设置分裂策略
+        // Set split strategy
         void setSplitStrategy(const SplitStrategy *splitStrategy);
 
     private:

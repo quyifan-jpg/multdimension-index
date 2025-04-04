@@ -7,7 +7,7 @@ namespace RTree
     LeafNode::LeafNode(uint32_t capacity, const SplitStrategy *splitStrategy)
         : m_capacity(capacity), m_mbr(0)
     {
-        // 初始化MBR为维度dimension的无效区域
+        // Initialize MBR as an invalid region with dimension
         m_splitStrategy = splitStrategy;
     }
 
@@ -79,10 +79,12 @@ namespace RTree
             return {this, nullptr};
         }
 
-        // 使用指定的分裂策略或默认的二分分裂
+        // Use specified split strategy or default binary split
         if (m_splitStrategy)
         {
-            auto [group1, group2] = m_splitStrategy->splitLeafEntries(m_entries, m_capacity);
+            std::vector<Data *> group1;
+            std::vector<Data *> group2;
+            std::tie(group1, group2) = m_splitStrategy->splitLeafEntries(m_entries, m_capacity);
             LeafNode *newNode = new LeafNode(m_capacity, m_splitStrategy);
 
             std::vector<Data *> originalEntries = std::move(m_entries);
@@ -102,25 +104,25 @@ namespace RTree
         }
         else
         {
-            // 使用简单的二分分裂策略
+            // Use simple binary split strategy
             LeafNode *newNode = new LeafNode(m_capacity);
             size_t middle = m_entries.size() / 2;
 
-            // 将后半部分数据复制到新节点
+            // Copy the second half of data to the new node
             for (size_t i = middle; i < m_entries.size(); ++i)
             {
                 Data *dataCopy = m_entries[i]->clone();
                 newNode->insert(dataCopy);
             }
 
-            // 删除原节点已复制的数据
+            // Delete the copied data from the original node
             for (size_t i = m_entries.size() - 1; i >= middle; --i)
             {
                 delete m_entries[i];
                 m_entries.pop_back();
             }
 
-            // 重新计算MBR
+            // Recalculate MBR
             recalculateMBR();
             newNode->recalculateMBR();
             return {this, newNode};
@@ -131,14 +133,14 @@ namespace RTree
     {
         if (m_entries.empty())
         {
-            m_mbr = Region(0); // 创建空区域
+            m_mbr = Region(0); // Create empty region
             return;
         }
 
-        // 以第一个数据的区域为初始值
+        // Use the region of the first data as initial value
         m_mbr = m_entries[0]->getRegion();
 
-        // 合并其他所有数据的区域
+        // Combine regions of all other data
         for (size_t i = 1; i < m_entries.size(); ++i)
         {
             m_mbr.combine(m_entries[i]->getRegion());
@@ -147,7 +149,7 @@ namespace RTree
 
     uint32_t LeafNode::getHeight() const
     {
-        return 1; // 叶子节点的高度始终为1
+        return 1; // Leaf node's height is always 1
     }
 
 } // namespace RTree

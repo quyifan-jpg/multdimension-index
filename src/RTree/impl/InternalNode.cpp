@@ -8,7 +8,7 @@ namespace RTree
     InternalNode::InternalNode(uint32_t capacity, const SplitStrategy *splitStrategy)
         : m_capacity(capacity), m_mbr(0), total_entries(0)
     {
-        // 初始化MBR为无效区域
+        // Initialize MBR as invalid region
         m_splitStrategy = splitStrategy;
     }
 
@@ -32,14 +32,14 @@ namespace RTree
 
     void InternalNode::insert(Data *data)
     {
-        // 选择最佳子树
+        // Choose the best subtree
         Node *child = chooseSubtree(data->getRegion());
 
-        // 插入数据
+        // Insert data
         child->insert(data);
         total_entries++;
 
-        // 检查是否需要分裂
+        // Check if splitting is needed
         if (child->shouldSplit())
         {
             auto [original, newChild] = child->split();
@@ -49,13 +49,13 @@ namespace RTree
             }
         }
 
-        // 更新MBR
+        // Update MBR
         recalculateMBR();
     }
 
     bool InternalNode::remove(id_type id, const Region &mbr)
     {
-        // 找到所有可能包含该数据的子节点
+        // Find all child nodes that might contain this data
         bool found = false;
         for (Node *child : m_children)
         {
@@ -65,17 +65,17 @@ namespace RTree
                 {
                     found = true;
                     total_entries--;
-                    break; // 找到并删除了，就不需要继续查找
+                    break; // Found and removed, no need to continue searching
                 }
             }
         }
 
         if (found)
         {
-            // 删除了数据，需要更新MBR
+            // Data removed, need to update MBR
             recalculateMBR();
 
-            // 检查是否有空子节点可以删除
+            // Check if there are empty child nodes that can be deleted
             auto it = std::remove_if(m_children.begin(), m_children.end(),
                                      [](Node *child)
                                      {
@@ -97,7 +97,7 @@ namespace RTree
     {
         std::vector<Data *> results;
 
-        // 搜索所有与查询区域相交的子节点
+        // Search all child nodes intersecting with the query region
         for (Node *child : m_children)
         {
             if (child->getMBR().intersects(query))
@@ -122,55 +122,53 @@ namespace RTree
             return {this, nullptr};
         }
 
-        // 使用指定的分裂策略或默认的二分分裂
+        // Use specified split strategy or default binary split
         if (m_splitStrategy)
         {
-            // 使用策略分裂子节点
+            // Use strategy to split child nodes
             auto [group1, group2] = m_splitStrategy->splitInternalChildren(m_children, m_capacity);
 
-            // 创建新节点
+            // Create new node
             InternalNode *newNode = new InternalNode(m_capacity, m_splitStrategy);
 
-            // 清空当前节点的子节点（但不删除，因为它们会被重新分配）
+            // Clear current node's children (but don't delete them, as they will be reassigned)
             std::vector<Node *> originalChildren = std::move(m_children);
             m_children.clear();
 
-            // 添加第一组子节点到当前节点
+            // Add first group of children to current node
             for (auto *child : group1)
             {
                 m_children.push_back(child);
             }
 
-            // 添加第二组子节点到新节点
+            // Add second group of children to new node
             for (auto *child : group2)
             {
                 newNode->addChild(child);
             }
 
-            // 重新计算MBR
+            // Recalculate MBR
             recalculateMBR();
             newNode->recalculateMBR();
-
-
 
             return {this, newNode};
         }
         else
         {
-            // 使用简单的二分分裂策略
+            // Use simple binary split strategy
             InternalNode *newNode = new InternalNode(m_capacity);
             size_t middle = m_children.size() / 2;
 
-            // 将后半部分子节点移动到新节点
+            // Move the second half of children to the new node
             for (size_t i = middle; i < m_children.size(); ++i)
             {
                 newNode->addChild(m_children[i]);
             }
 
-            // 删除原节点已移动的子节点(但不删除Node对象，已转移所有权)
+            // Remove moved children from original node (but don't delete Node objects, ownership transferred)
             m_children.resize(middle);
 
-            // 重新计算MBR
+            // Recalculate MBR
             recalculateMBR();
             newNode->recalculateMBR();
 
@@ -182,22 +180,20 @@ namespace RTree
     {
         m_children.push_back(child);
         recalculateMBR();
-
-
     }
 
     void InternalNode::recalculateMBR()
     {
         if (m_children.empty())
         {
-            m_mbr = Region(0); // 创建空区域
+            m_mbr = Region(0); // Create empty region
             return;
         }
 
-        // 以第一个子节点的MBR为初始值
+        // Use the MBR of the first child as initial value
         m_mbr = m_children[0]->getMBR();
 
-        // 合并其他所有子节点的MBR
+        // Combine MBRs of all other children
         for (size_t i = 1; i < m_children.size(); ++i)
         {
             Region mbr = m_children[i]->getMBR();
@@ -212,25 +208,25 @@ namespace RTree
             return nullptr;
         }
 
-        // 为所有子节点使用统一的选择标准
+        // Use unified selection criteria for all children
         double minEnlargement = std::numeric_limits<double>::max();
         Node *bestChild = nullptr;
 
         for (Node *child : m_children)
         {
-            // 计算合并后的区域面积增加量
+            // Calculate area increase after combining regions
             Region combined = child->getMBR();
             double originalArea = combined.getArea();
             combined.combine(mbr);
             double enlargement = combined.getArea() - originalArea;
 
-            // 主要标准：最小扩展
+            // Primary criterion: minimum expansion
             if (bestChild == nullptr || enlargement < minEnlargement)
             {
                 minEnlargement = enlargement;
                 bestChild = child;
             }
-            // 次要标准：如果扩展相同，选择面积较小的
+            // Secondary criterion: if expansion is the same, choose the smaller area
             else if (enlargement == minEnlargement)
             {
                 if (child->getMBR().getArea() < bestChild->getMBR().getArea())
@@ -240,13 +236,13 @@ namespace RTree
             }
         }
 
-        // 如果最佳子节点是内部节点，则递归进入
+        // If the best child is an internal node, recurse into it
         if (!bestChild->isLeaf())
         {
             return static_cast<InternalNode *>(bestChild)->chooseSubtree(mbr);
         }
 
-        // 否则返回找到的叶子节点
+        // Otherwise return the leaf node found
         return bestChild;
     }
 
@@ -254,10 +250,10 @@ namespace RTree
     {
         if (m_children.empty())
         {
-            return 1; // 空内部节点也有高度1
+            return 1; // Even empty internal nodes have height 1
         }
 
-        // 内部节点的高度是其子节点中最大高度加1
+        // Internal node's height is the maximum height of its children plus 1
         uint32_t maxChildHeight = 0;
         for (const Node *child : m_children)
         {

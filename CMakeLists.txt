@@ -1,27 +1,27 @@
 cmake_minimum_required(VERSION 3.10)
 project(RTree VERSION 1.0 LANGUAGES CXX)
 
-# 设置C++标准
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# 设置编译选项
+# Set compilation options
 if(MSVC)
     add_compile_options(/W4)
 else()
     add_compile_options(-Wall -Wextra -pedantic)
 endif()
 
-# 设置调试/发布模式
+# Set debug/release mode
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
 endif()
 
-# 添加include目录
+# Add include directories
 include_directories(${CMAKE_SOURCE_DIR})
 
-# 设置RTree库的源文件
+# Set source files for RTree library
 set(RTREE_SOURCES
     src/RTree/impl/Point.cpp
     src/RTree/impl/Region.cpp
@@ -31,23 +31,24 @@ set(RTREE_SOURCES
     src/RTree/impl/SimpleRTree.cpp
     src/RTree/impl/LinearSplitStrategy.cpp
     src/RTree/impl/QuadraticSplitStrategy.cpp
+    src/RTree/impl/RStarSplitStrategy.cpp
 )
 
-# 创建RTree静态库
+# Create RTree static library
 add_library(rtree STATIC ${RTREE_SOURCES})
 target_include_directories(rtree PUBLIC ${CMAKE_SOURCE_DIR})
 
-# 添加示例程序
+# Add example program
 add_executable(rtree_app src/main.cpp)
 target_link_libraries(rtree_app PRIVATE rtree)
 
-# 安装规则（可选）
+# Installation rules (optional)
 install(TARGETS rtree rtree_app
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
 install(FILES src/RTree/Rtree.h DESTINATION include/RTree)
 
-# 输出配置信息
+# Output configuration information
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}") 

@@ -3,7 +3,7 @@
 
 namespace RTree
 {
-    // 创建全局静态的LinearSplitStrategy实例
+    // Create global static LinearSplitStrategy instance
     static const LinearSplitStrategy s_defaultSplitStrategy;
     RTree::RTree(uint32_t dimension, uint32_t nodeCapacity, const SplitStrategy *splitStrategy)
         : m_dimension(dimension), m_nodeCapacity(nodeCapacity), m_nextId(1)
@@ -26,12 +26,12 @@ namespace RTree
 
     void RTree::insert(uint32_t dataLength, const uint8_t *pData, const Region &mbr, id_type id)
     {
-        // 创建数据对象
+        // Create data object
         Data *data = new Data(dataLength, pData, mbr, id);
-        // 插入数据
+        // Insert data
         insertData_impl(data);
 
-        // 下一个可用ID
+        // Next available ID
         m_nextId = std::max(m_nextId, id + 1);
     }
 
@@ -50,7 +50,7 @@ namespace RTree
         std::vector<Data *> intersectedResults = m_root_node->search(query);
         std::vector<Data *> containedResults;
 
-        // 过滤出完全被包含的结果
+        // Filter out results that are fully contained
         for (Data *data : intersectedResults)
         {
             if (query.contains(data->getRegion()))
@@ -64,7 +64,7 @@ namespace RTree
 
     std::vector<Data *> RTree::pointQuery(const Point &point)
     {
-        // 为点查询创建一个极小的区域
+        // Create a tiny region for point query
         double coords[m_dimension * 2];
         for (uint32_t i = 0; i < m_dimension; ++i)
         {
@@ -76,7 +76,7 @@ namespace RTree
         std::vector<Data *> intersectedResults = m_root_node->search(pointRegion);
         std::vector<Data *> pointResults;
 
-        // 过滤出包含该点的结果
+        // Filter out results that contain the point
         for (Data *data : intersectedResults)
         {
             if (data->getRegion().contains(point))
@@ -102,7 +102,7 @@ namespace RTree
     {
         if (!m_root_node)
         {
-            return 0; // 空树的高度为0
+            return 0; // Empty tree has height 0
         }
 
         return m_root_node->getHeight();
@@ -110,23 +110,23 @@ namespace RTree
 
     void RTree::setSplitStrategy(const SplitStrategy *splitStrategy)
     {
-        // 如果没有提供分裂策略，继续使用默认的LinearSplitStrategy
+        // If no split strategy is provided, continue using the default LinearSplitStrategy
         m_splitStrategy = splitStrategy ? splitStrategy : &s_defaultSplitStrategy;
     }
 
     void RTree::insertData_impl(Data *data)
     {
-        // 将数据插入到根节点
+        // Insert data into the root node
         m_root_node->insert(data);
 
-        // 如果根节点分裂，需要创建新的根节点
+        // If the root node splits, need to create a new root node
         if (m_root_node->shouldSplit())
         {
             auto [original, newNode] = m_root_node->split();
 
             if (newNode)
             {
-                // 创建新的内部节点作为根
+                // Create a new internal node as root
                 InternalNode *newRoot = new InternalNode(m_nodeCapacity, m_splitStrategy);
                 newRoot->addChild(original);
                 newRoot->addChild(newNode);
@@ -142,7 +142,7 @@ namespace RTree
         {
             LeafNode *leaf = static_cast<LeafNode *>(node);
 
-            // 检查是否有匹配的数据
+            // Check if there's matching data
             for (Data *data : leaf->m_entries)
             {
                 if (data->getIdentifier() == id)
@@ -154,7 +154,7 @@ namespace RTree
             return nullptr;
         }
 
-        // 对于内部节点，递归搜索子节点
+        // For internal nodes, recursively search child nodes
         InternalNode *internalNode = static_cast<InternalNode *>(node);
         for (Node *child : internalNode->m_children)
         {
@@ -173,24 +173,24 @@ namespace RTree
 
     void RTree::adjustTree(Node *node, Node *newNode)
     {
-        // 如果没有新节点，只需要更新MBR
+        // If no new node, just update the MBR
         if (newNode == nullptr)
         {
-            // 如果是根节点，不需要再调整
+            // If it's the root node, no need to adjust further
             if (node == m_root_node)
             {
                 return;
             }
 
-            // 递归向上调整父节点
-            // 这里简化处理，直接重新计算节点MBR即可
-            // 在实际实现中，需要更新父节点中对应entry的MBR
+            // Recursively adjust parent nodes
+            // Simplified handling, just recalculate node MBR
+            // In an actual implementation, need to update the MBR of the corresponding entry in the parent node
             return;
         }
 
-        // 如果有新节点，需要处理分裂的情况
+        // If there's a new node, need to handle the split case
 
-        // 如果分裂的是根节点，创建新的根
+        // If the split node is the root, create a new root
         if (node == m_root_node)
         {
             InternalNode *newRoot = new InternalNode(m_nodeCapacity, m_splitStrategy);
@@ -200,9 +200,9 @@ namespace RTree
             return;
         }
 
-        // 否则，将新节点添加到父节点，并检查父节点是否需要分裂
-        // 这里简化处理，因为我们的实现中，节点分裂时已经递归处理了
-        // 在实际实现中，需要找到父节点，更新对应entry的MBR，并添加新的entry
+        // Otherwise, add the new node to the parent and check if the parent needs to split
+        // Simplified handling, as in our implementation, node splits are handled recursively
+        // In an actual implementation, need to find the parent node, update the MBR of the corresponding entry, and add a new entry
     }
 
 } // namespace RTree
